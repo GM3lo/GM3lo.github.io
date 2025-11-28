@@ -115,6 +115,28 @@
             transform: translateX(5px);
             background-color: #3e265c; /* Ligeiramente mais claro ao passar o mouse */
         }
+
+        /* Estilo do Botão do Novo Simulado (Diferente da lista) */
+        .simulado-button {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            background-color: #be58f2; /* Roxo brilhante */
+            color: #0f0f1a; /* Texto escuro */
+            font-weight: bold;
+            font-size: 1.2em;
+            border-radius: 12px;
+            text-decoration: none;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(190, 88, 242, 0.4);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        
+        .simulado-button:hover {
+            background-color: #d175ff; /* Roxo mais claro no hover */
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
@@ -131,15 +153,19 @@
     <div class="container">
         
         <section id="simulados" class="content-section active">
-            <h2>🧠 Simulados</h2>
-            <p>Escolha um simulado para testar seus conhecimentos e medir seu progresso.</p>
+            <h2>🧠 Simulados Disponíveis</h2>
+            
+            <a href="simulado_vigilancia.html" target="_blank" class="simulado-button">
+                🚨 Simulado: Vigilância e PNI (50 Questões)
+            </a>
+            
+            <p>Outros simulados para testar seus conhecimentos:</p>
             <ul class="example-list">
                 <li>Simulado de Matemática Avançada - 20 questões</li>
                 <li>Simulado de Português - Interpretação de Texto</li>
                 <li>Simulado Completo - ENEM (Todas as áreas)</li>
                 <li>Simulado de Inglês - Gramática e Vocabulário</li>
             </ul>
-            <p>Clique em um simulado para começar!</p>
         </section>
 
         <section id="videoaulas" class="content-section">
@@ -158,22 +184,17 @@
 
     <script>
         function showSection(sectionId) {
-            // Remove a classe 'active' de todas as seções de conteúdo
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.remove('active');
             });
-            // Adiciona a classe 'active' à seção clicada
             document.getElementById(sectionId).classList.add('active');
 
-            // Remove a classe 'active-nav' de todos os links de navegação
             document.querySelectorAll('nav a').forEach(link => {
                 link.classList.remove('active-nav');
             });
-            // Adiciona a classe 'active-nav' ao link clicado
             document.getElementById(`nav-${sectionId}`).classList.add('active-nav');
         }
 
-        // Garante que o simulados seja a aba inicial ao carregar a página (se não houver um hash)
         document.addEventListener('DOMContentLoaded', () => {
             const initialSection = window.location.hash ? window.location.hash.substring(1) : 'simulados';
             showSection(initialSection);
