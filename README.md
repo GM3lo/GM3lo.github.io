@@ -27,7 +27,7 @@
         <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
             <div>
                 <h1 class="text-lg font-bold">Simulado: Infecções Virais</h1>
-                <p class="text-xs text-blue-200">Baseado no material TBL31NCS2</p>
+                <p class="text-xs text-blue-200">Questões de Vigilância em Saúde</p>
             </div>
             <div class="text-right">
                 <div id="timer" class="text-xl font-mono font-bold text-yellow-400">00:00</div>
