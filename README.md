@@ -141,7 +141,7 @@
             transform: translateY(-2px);
         }
 
-        /* Estilo Específico para o Botão do YouTube */
+        /* Estilo Específico para o NOVO Botão do YouTube */
         .youtube-button {
             background-color: #ff0000; /* Vermelho do YouTube */
             color: #ffffff; /* Texto branco */
@@ -174,49 +174,6 @@
             height: 100%;
             border: 0;
         }
-
-        /* ========================================= */
-        /* NOVOS ESTILOS PARA O GERENCIADOR DE ARQUIVOS */
-        /* ========================================= */
-        #file-manager {
-            background-color: #311d4e;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            border: 1px dashed #be58f2;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        #file-manager h3 {
-            color: #be58f2;
-            margin-top: 0;
-        }
-        #file-manager input[type="file"] {
-            padding: 10px;
-            background-color: #0f0f1a;
-            color: #ffffff;
-            border: 1px solid #4a007f;
-            border-radius: 5px;
-            width: calc(100% - 22px);
-            margin-bottom: 15px;
-        }
-        /* Estilo Específico para o NOVO Botão de Arquivo Dinâmico */
-        .file-button {
-            background-color: #008cba; /* Azul para Download/Arquivo */
-            color: #ffffff;
-            box-shadow: 0 4px 10px rgba(0, 140, 186, 0.4);
-            margin-bottom: 15px; /* Adicionar margem para o botão */
-            padding: 15px; /* Ajustar padding para harmonizar */
-            font-size: 1em; /* Ajustar fonte */
-        }
-        .file-button:hover {
-            background-color: #005f7a;
-            transform: translateY(-2px);
-        }
-        .dynamic-content-area {
-            margin-top: 20px;
-            border-top: 2px solid #3e265c;
-            padding-top: 20px;
-        }
     </style>
 </head>
 <body>
@@ -231,15 +188,7 @@
     </nav>
 
     <div class="container">
-
-        <div id="file-manager">
-            <h3>🔗 Adicionar Arquivo e Criar Botão (FUNCIONALIDADE DINÂMICA)</h3>
-            <p>Selecione um arquivo para criar um botão de acesso temporário na seção ativa (Simulados ou Videoaulas). **O arquivo só estará disponível enquanto a página estiver aberta.**</p>
-            <input type="file" id="fileInput" accept="*/*">
-            <button onclick="createFileAccessButton()" class="primary-button file-button" style="width: 100%; display: block; margin-top: 15px;">
-                ➕ Adicionar Botão de Acesso ao Arquivo
-            </button>
-        </div>
+        
         <section id="simulados" class="content-section active">
             <h2>🧠 Simulados Disponíveis</h2>
             
@@ -254,10 +203,6 @@
                 <li>Simulado Completo - ENEM (Todas as áreas)</li>
                 <li>Simulado de Inglês - Gramática e Vocabulário</li>
             </ul>
-
-            <div id="dynamic-simulados-buttons" class="dynamic-content-area">
-                <h4>Botões de Arquivos Personalizados (Simulados)</h4>
-            </div>
         </section>
 
         <section id="videoaulas" class="content-section">
@@ -283,19 +228,11 @@
             </a>
 
             <p class="mt-4 text-sm text-gray-400">Clique no player acima para começar a aula. Use o botão vermelho para acessar o canal com todas as videoaulas.</p>
-
-            <div id="dynamic-videoaulas-buttons" class="dynamic-content-area">
-                <h4>Botões de Arquivos Personalizados (Videoaulas)</h4>
-            </div>
         </section>
 
     </div>
 
     <script>
-        /**
-         * Função para alternar entre as seções.
-         * @param {string} sectionId - O ID da seção a ser exibida ('simulados' ou 'videoaulas').
-         */
         function showSection(sectionId) {
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.remove('active');
@@ -306,51 +243,6 @@
                 link.classList.remove('active-nav');
             });
             document.getElementById(`nav-${sectionId}`).classList.add('active-nav');
-        }
-
-        /**
-         * Função principal para criar o botão de acesso ao arquivo.
-         */
-        function createFileAccessButton() {
-            const fileInput = document.getElementById('fileInput');
-            const file = fileInput.files[0];
-
-            if (!file) {
-                alert('🚫 Por favor, selecione um arquivo primeiro no campo acima.');
-                return;
-            }
-
-            // 1. Encontra a seção (Simulados ou Videoaulas) que está ativa no momento.
-            const activeSection = document.querySelector('.content-section.active');
-            if (!activeSection) {
-                alert('Erro: Nenhuma seção ativa encontrada.');
-                return;
-            }
-
-            // 2. Define a área correta para anexar o novo botão.
-            const targetDivId = `dynamic-${activeSection.id}-buttons`;
-            const targetDiv = document.getElementById(targetDivId);
-
-            // 3. Cria um URL temporário para o arquivo selecionado.
-            // Isso permite que o navegador baixe o arquivo *enquanto* a página estiver aberta.
-            const fileURL = URL.createObjectURL(file);
-            const fileName = file.name;
-
-            // 4. Cria o novo elemento de botão (link <a>).
-            const newButton = document.createElement('a');
-            newButton.href = fileURL;
-            newButton.target = '_blank';
-            newButton.className = 'primary-button file-button'; // Aplica o novo estilo azul
-            newButton.download = fileName; // Sugere o nome do arquivo ao baixar
-            newButton.innerHTML = `⬇️ Baixar Arquivo: ${fileName}`;
-
-            // 5. Adiciona o botão ao topo da área dinâmica da seção ativa.
-            targetDiv.prepend(newButton);
-
-            // Limpa o campo de arquivo para um novo upload
-            fileInput.value = '';
-
-            alert(`✅ Botão para "${fileName}" adicionado com sucesso na seção "${activeSection.id.toUpperCase()}"!`);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
