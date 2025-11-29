@@ -1,10 +1,10 @@
-<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plataforma de Estudos - Black & Purple</title>
     <style>
+        /* Estilos CSS (Versão Preto e Roxo) */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -20,34 +20,12 @@
             padding: 25px 20px;
             text-align: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            position: relative;
         }
 
         header h1 {
             margin: 0;
             font-size: 2.5em;
             letter-spacing: 1px;
-        }
-
-        .admin-btn {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: rgba(255,255,255,0.6);
-            padding: 8px 16px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 0.85em;
-            transition: all 0.3s ease;
-        }
-
-        .admin-btn:hover {
-            background-color: rgba(190, 88, 242, 0.3);
-            border-color: #be58f2;
-            color: #be58f2;
         }
 
         nav {
@@ -116,6 +94,7 @@
             color: #c0c0d0;
         }
 
+        /* Estilos para o conteúdo de exemplo (Simulados) */
         .example-list {
             list-style: none;
             padding: 0;
@@ -136,16 +115,7 @@
             background-color: #3e265c;
         }
 
-        .example-list li a {
-            color: #e0e0e0;
-            text-decoration: none;
-            display: block;
-        }
-
-        .example-list li a:hover {
-            color: #be58f2;
-        }
-
+        /* Estilo dos Botões (Simulado e YouTube) */
         .primary-button {
             display: block;
             width: 100%;
@@ -157,12 +127,12 @@
             text-decoration: none;
             margin-bottom: 20px;
             transition: background-color 0.3s ease, transform 0.2s ease;
-            box-sizing: border-box;
         }
 
+        /* Estilo Específico para o Botão do Simulados */
         .simulado-button {
-            background-color: #be58f2;
-            color: #0f0f1a;
+            background-color: #be58f2; /* Roxo brilhante */
+            color: #0f0f1a; /* Texto escuro */
             box-shadow: 0 4px 10px rgba(190, 88, 242, 0.4);
         }
         
@@ -171,11 +141,12 @@
             transform: translateY(-2px);
         }
 
+        /* Estilo Específico para o NOVO Botão do YouTube */
         .youtube-button {
-            background-color: #ff0000;
-            color: #ffffff;
+            background-color: #ff0000; /* Vermelho do YouTube */
+            color: #ffffff; /* Texto branco */
             box-shadow: 0 4px 10px rgba(255, 0, 0, 0.4);
-            margin-top: 25px;
+            margin-top: 25px; /* Separar do vídeo */
         }
 
         .youtube-button:hover {
@@ -183,20 +154,10 @@
             transform: translateY(-2px);
         }
 
-        .material-button {
-            background-color: #10b981;
-            color: #ffffff;
-            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);
-        }
-
-        .material-button:hover {
-            background-color: #059669;
-            transform: translateY(-2px);
-        }
-
+        /* Estilo para o vídeo responsivo */
         .video-wrapper {
             position: relative;
-            padding-bottom: 56.25%;
+            padding-bottom: 56.25%; /* Proporção 16:9 */
             height: 0;
             overflow: hidden;
             max-width: 100%;
@@ -213,71 +174,41 @@
             height: 100%;
             border: 0;
         }
-
-        .empty-message {
-            text-align: center;
-            color: #888;
-            padding: 40px;
-            font-style: italic;
-        }
-
-        .file-icon {
-            display: inline-block;
-            margin-right: 10px;
-        }
-
-        .file-description {
-            font-size: 0.85em;
-            color: #999;
-            margin-top: 5px;
-        }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Minha Plataforma de Estudos</h1>
-        <a href="/admin/login" class="admin-btn">Admin</a>
+        <h1>📚 Minha Plataforma de Estudos</h1>
     </header>
 
     <nav>
         <a href="#simulados" id="nav-simulados" onclick="showSection('simulados')">Simulados</a>
         <a href="#videoaulas" id="nav-videoaulas" onclick="showSection('videoaulas')">Videoaulas</a>
-        <a href="#materiais" id="nav-materiais" onclick="showSection('materiais')">Materiais Complementares</a>
     </nav>
 
     <div class="container">
         
         <section id="simulados" class="content-section active">
-            <h2>Simulados Disponíveis</h2>
+            <h2>🧠 Simulados Disponíveis</h2>
             
-            <a href="/simulado_vigilancia.html" target="_blank" class="primary-button simulado-button">
-                Simulado: Vigilância e PNI (50 Questões)
+            <a href="simulado_vigilancia.html" target="_blank" class="primary-button simulado-button">
+                🚨 Simulado: Vigilância e PNI (50 Questões)
             </a>
             
-            {% if simulados %}
             <p>Outros simulados para testar seus conhecimentos:</p>
             <ul class="example-list">
-                {% for s in simulados %}
-                <li>
-                    <a href="/uploads/{{ s.filename }}" target="_blank">
-                        <span class="file-icon">📝</span>{{ s.title }}
-                        {% if s.description %}
-                        <div class="file-description">{{ s.description }}</div>
-                        {% endif %}
-                    </a>
-                </li>
-                {% endfor %}
+                <li>Simulado de Matemática Avançada - 20 questões</li>
+                <li>Simulado de Português - Interpretação de Texto</li>
+                <li>Simulado Completo - ENEM (Todas as áreas)</li>
+                <li>Simulado de Inglês - Gramática e Vocabulário</li>
             </ul>
-            {% else %}
-            <p class="empty-message">Nenhum simulado adicional disponível ainda.</p>
-            {% endif %}
         </section>
 
         <section id="videoaulas" class="content-section">
-            <h2>Videoaulas</h2>
+            <h2>🎬 Videoaula em Destaque</h2>
             
-            <p class="font-bold text-lg" style="color: #be58f2;">Aula: O Papel da Vigilância Sanitária na Saúde Pública</p>
+            <p class="font-bold text-lg text-[#be58f2]">Aula: O Papel da Vigilância Sanitária na Saúde Pública</p>
 
             <div class="video-wrapper">
                 <iframe 
@@ -293,48 +224,10 @@
             </div>
 
             <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0&list=RDxvFZjo5PgG0&start_radio=1" target="_blank" class="primary-button youtube-button">
-                ACESSE NOSSO CANAL COMPLETO NO YOUTUBE
+                ▶️ ACESSE NOSSO CANAL COMPLETO NO YOUTUBE
             </a>
 
-            {% if aulas %}
-            <p style="margin-top: 30px;">Mais videoaulas disponíveis:</p>
-            <ul class="example-list">
-                {% for a in aulas %}
-                <li>
-                    <a href="/uploads/{{ a.filename }}" target="_blank">
-                        <span class="file-icon">🎬</span>{{ a.title }}
-                        {% if a.description %}
-                        <div class="file-description">{{ a.description }}</div>
-                        {% endif %}
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-
-            <p class="mt-4 text-sm" style="color: #888; margin-top: 20px;">Clique no player acima para começar a aula. Use o botão vermelho para acessar o canal com todas as videoaulas.</p>
-        </section>
-
-        <section id="materiais" class="content-section">
-            <h2>Materiais Complementares</h2>
-            
-            {% if materiais %}
-            <p>Acesse os materiais de apoio para seus estudos:</p>
-            <ul class="example-list">
-                {% for m in materiais %}
-                <li>
-                    <a href="/uploads/{{ m.filename }}" target="_blank">
-                        <span class="file-icon">📚</span>{{ m.title }}
-                        {% if m.description %}
-                        <div class="file-description">{{ m.description }}</div>
-                        {% endif %}
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
-            {% else %}
-            <p class="empty-message">Nenhum material complementar disponível ainda. Em breve teremos novos conteúdos!</p>
-            {% endif %}
+            <p class="mt-4 text-sm text-gray-400">Clique no player acima para começar a aula. Use o botão vermelho para acessar o canal com todas as videoaulas.</p>
         </section>
 
     </div>
@@ -353,9 +246,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            const hash = window.location.hash ? window.location.hash.substring(1) : 'simulados';
-            const validSections = ['simulados', 'videoaulas', 'materiais'];
-            const initialSection = validSections.includes(hash) ? hash : 'simulados';
+            const initialSection = window.location.hash ? window.location.hash.substring(1) : 'simulados';
             showSection(initialSection);
         });
     </script>

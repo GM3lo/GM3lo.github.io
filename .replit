@@ -1,7 +1,6 @@
 modules = ["web", "python-3.11"]
 [agent]
 expertMode = true
-integrations = ["github:1.0.0"]
 
 [nix]
 channel = "stable-25_05"
@@ -22,23 +21,22 @@ args = "Web Server"
 name = "Web Server"
 author = "agent"
 
-[workflows.workflow.metadata]
-outputType = "webview"
-
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "python app.py"
+args = "python server.py"
 waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"
 
 [[ports]]
 localPort = 5000
 externalPort = 80
 
 [[ports]]
-localPort = 39901
+localPort = 44363
 externalPort = 3000
 
 [deployment]
-deploymentTarget = "autoscale"
+deploymentTarget = "static"
 publicDir = "."
-run = ["gunicorn", "--bind=0.0.0.0:5000", "--reuse-port", "app:app"]
