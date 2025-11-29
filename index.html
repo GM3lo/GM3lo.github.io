@@ -472,6 +472,28 @@
             document.getElementById('materiais-count').classList.toggle('empty', materiaisCount === 0);
         }
 
+        function updateCounters() {
+            const resources = JSON.parse(localStorage.getItem('resources') || '[]');
+            
+            // Contar simulados: 1 fixo (Vigilância e PNI) + dinâmicos
+            const simuladosCount = 1 + resources.filter(r => r.category === 'simulados').length;
+            
+            // Contar videoaulas: 1 fixa (YouTube) + dinâmicas
+            const videoaulasCount = 1 + resources.filter(r => r.category === 'videoaulas').length;
+            
+            // Contar materiais: apenas dinâmicos (nenhum fixo)
+            const materiaisCount = resources.filter(r => r.category === 'materiais').length;
+            
+            document.getElementById('simulados-count').textContent = simuladosCount;
+            document.getElementById('videoaulas-count').textContent = videoaulasCount;
+            document.getElementById('materiais-count').textContent = materiaisCount;
+            
+            // Adicionar classe empty se for 0
+            document.getElementById('simulados-count').classList.toggle('empty', simuladosCount === 0);
+            document.getElementById('videoaulas-count').classList.toggle('empty', videoaulasCount === 0);
+            document.getElementById('materiais-count').classList.toggle('empty', materiaisCount === 0);
+        }
+
         function showSection(sectionId) {
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.remove('active');
