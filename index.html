@@ -17,6 +17,13 @@
             color: #e0e0e0;
             line-height: 1.6;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-wrapper {
+            display: flex;
+            flex: 1;
         }
 
         header {
@@ -29,6 +36,7 @@
             align-items: center;
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(190, 88, 242, 0.1);
+            z-index: 100;
         }
 
         header h1 {
@@ -55,62 +63,86 @@
             opacity: 0.7;
         }
 
-        nav {
-            background: linear-gradient(90deg, rgba(26, 26, 62, 0.8) 0%, rgba(46, 15, 79, 0.9) 100%);
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            border-bottom: 1px solid rgba(190, 88, 242, 0.2);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            flex-wrap: wrap;
-            backdrop-filter: blur(15px);
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(135deg, rgba(34, 34, 59, 0.8) 0%, rgba(26, 26, 50, 0.9) 100%);
+            border-right: 1px solid rgba(190, 88, 242, 0.15);
+            padding: 30px 0;
+            max-height: calc(100vh - 140px);
+            overflow-y: auto;
+            backdrop-filter: blur(10px);
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
         }
 
-        nav a {
-            display: block;
+        .sidebar-menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .sidebar-item {
+            margin: 0;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 24px;
             color: #e0e0e0;
-            text-align: center;
-            padding: 20px 35px;
             text-decoration: none;
             transition: all 0.3s ease;
+            cursor: pointer;
+            border-left: 4px solid transparent;
             font-weight: 600;
-            letter-spacing: 0.8px;
-            font-size: 1em;
-            position: relative;
+            font-size: 1.05em;
+            letter-spacing: 0.3px;
         }
 
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #be58f2, #8b3dff);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        nav a:hover::after,
-        nav a.active-nav::after {
-            width: 80%;
-        }
-
-        nav a:hover,
-        nav a.active-nav {
+        .sidebar-link:hover {
+            background: rgba(190, 88, 242, 0.1);
+            border-left-color: #be58f2;
             color: #be58f2;
+            padding-left: 32px;
         }
 
-        nav a.admin-nav {
-            font-size: 12px;
-            padding: 16px 15px;
-            opacity: 0.6;
+        .sidebar-link.active {
+            background: linear-gradient(90deg, rgba(190, 88, 242, 0.2) 0%, transparent 100%);
+            border-left-color: #be58f2;
+            color: #be58f2;
+            box-shadow: inset 0 0 15px rgba(190, 88, 242, 0.1);
+        }
+
+        .counter-badge {
+            background: linear-gradient(135deg, #be58f2 0%, #8b3dff 100%);
+            color: #ffffff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(190, 88, 242, 0.4);
+        }
+
+        .counter-badge.empty {
+            background: rgba(190, 88, 242, 0.3);
+            color: #a0a0b0;
+        }
+
+        .content-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
 
         .container {
+            flex: 1;
             max-width: 1000px;
             margin: 40px auto;
             padding: 0 20px;
+            width: 100%;
+            overflow-y: auto;
         }
 
         .content-section {
@@ -296,6 +328,41 @@
             margin-top: 8px;
             line-height: 1.5;
         }
+
+        /* Scroll responsivo */
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(190, 88, 242, 0.3);
+            border-radius: 3px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: rgba(190, 88, 242, 0.5);
+        }
+
+        .container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .container::-webkit-scrollbar-thumb {
+            background: rgba(190, 88, 242, 0.3);
+            border-radius: 3px;
+        }
+
+        .container::-webkit-scrollbar-thumb:hover {
+            background: rgba(190, 88, 242, 0.5);
+        }
     </style>
 </head>
 <body>
@@ -305,80 +372,116 @@
         <a href="admin.html" class="admin-link-header" title="Admin">⚙️</a>
     </header>
 
-    <nav>
-        <a href="#simulados" id="nav-simulados" onclick="showSection('simulados')">Simulados</a>
-        <a href="#videoaulas" id="nav-videoaulas" onclick="showSection('videoaulas')">Videoaulas</a>
-        <a href="#materiais" id="nav-materiais" onclick="showSection('materiais')">Materiais Complementares</a>
-    </nav>
-
-    <div class="container">
-        
-        <section id="simulados" class="content-section active">
-            <h2>🧠 Simulados Disponíveis</h2>
-            
-            <a href="simulado_vigilancia.html" target="_blank" class="primary-button simulado-button">
-                🚨 Simulado: Vigilância e PNI (50 Questões)
-            </a>
-            
-            <p>Outros simulados para testar seus conhecimentos:</p>
-            <ul class="example-list" id="simulados-list">
-                <li>Simulado de Matemática Avançada - 20 questões</li>
-                <li>Simulado de Português - Interpretação de Texto</li>
-                <li>Simulado Completo - ENEM (Todas as áreas)</li>
-                <li>Simulado de Inglês - Gramática e Vocabulário</li>
+    <div class="main-wrapper">
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="sidebar-item">
+                    <a class="sidebar-link active" onclick="showSection('simulados')" data-section="simulados">
+                        <span>🧠 Simulados</span>
+                        <span class="counter-badge" id="simulados-count">0</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" onclick="showSection('videoaulas')" data-section="videoaulas">
+                        <span>🎬 Videoaulas</span>
+                        <span class="counter-badge" id="videoaulas-count">0</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" onclick="showSection('materiais')" data-section="materiais">
+                        <span>📄 Materiais</span>
+                        <span class="counter-badge" id="materiais-count">0</span>
+                    </a>
+                </li>
             </ul>
-            <div id="simulados-dinamicos"></div>
-        </section>
+        </aside>
 
-        <section id="videoaulas" class="content-section">
-            <h2>🎬 Videoaulas em Destaque</h2>
-            
-            <p class="font-bold text-lg text-[#be58f2]">Aula: O Papel da Vigilância Sanitária na Saúde Pública</p>
+        <div class="content-area">
+            <div class="container">
+                <section id="simulados" class="content-section active">
+                    <h2>🧠 Simulados Disponíveis</h2>
+                    
+                    <a href="simulado_vigilancia.html" target="_blank" class="primary-button simulado-button">
+                        🚨 Simulado: Vigilância e PNI (50 Questões)
+                    </a>
+                    
+                    <p>Outros simulados para testar seus conhecimentos:</p>
+                    <ul class="example-list" id="simulados-list">
+                        <li>Simulado de Matemática Avançada - 20 questões</li>
+                        <li>Simulado de Português - Interpretação de Texto</li>
+                        <li>Simulado Completo - ENEM (Todas as áreas)</li>
+                        <li>Simulado de Inglês - Gramática e Vocabulário</li>
+                    </ul>
+                    <div id="simulados-dinamicos"></div>
+                </section>
 
-            <div class="video-wrapper">
-                <iframe 
-                    width="560" 
-                    height="315" 
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=c-V-m9eB-t6dO7-P" 
-                    title="YouTube video player" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    referrerpolicy="strict-origin-when-cross-origin" 
-                    allowfullscreen>
-                </iframe>
+                <section id="videoaulas" class="content-section">
+                    <h2>🎬 Videoaulas em Destaque</h2>
+                    
+                    <p class="font-bold text-lg text-[#be58f2]">Aula: O Papel da Vigilância Sanitária na Saúde Pública</p>
+
+                    <div class="video-wrapper">
+                        <iframe 
+                            width="560" 
+                            height="315" 
+                            src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=c-V-m9eB-t6dO7-P" 
+                            title="YouTube video player" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            referrerpolicy="strict-origin-when-cross-origin" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+
+                    <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0&list=RDxvFZjo5PgG0&start_radio=1" target="_blank" class="primary-button youtube-button">
+                        ▶️ ACESSE NOSSO CANAL COMPLETO NO YOUTUBE
+                    </a>
+
+                    <p class="mt-4 text-sm text-gray-400">Clique no player acima para começar a aula. Use o botão vermelho para acessar o canal com todas as videoaulas.</p>
+
+                    <div id="videoaulas-dinamicas" style="margin-top: 30px;"></div>
+                </section>
+
+                <section id="materiais" class="content-section">
+                    <h2>📄 Materiais Complementares</h2>
+                    <p>Acesse aqui materiais de apoio, resumos, guias de estudo e recursos adicionais.</p>
+                    <div id="materiais-dinamicos"></div>
+                    <div id="materiais-vazio" style="text-align: center; color: #888; padding: 40px 0;">
+                        <p>Nenhum material disponível no momento.</p>
+                    </div>
+                </section>
             </div>
-
-            <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0&list=RDxvFZjo5PgG0&start_radio=1" target="_blank" class="primary-button youtube-button">
-                ▶️ ACESSE NOSSO CANAL COMPLETO NO YOUTUBE
-            </a>
-
-            <p class="mt-4 text-sm text-gray-400">Clique no player acima para começar a aula. Use o botão vermelho para acessar o canal com todas as videoaulas.</p>
-
-            <div id="videoaulas-dinamicas" style="margin-top: 30px;"></div>
-        </section>
-
-        <section id="materiais" class="content-section">
-            <h2>📄 Materiais Complementares</h2>
-            <p>Acesse aqui materiais de apoio, resumos, guias de estudo e recursos adicionais.</p>
-            <div id="materiais-dinamicos"></div>
-            <div id="materiais-vazio" style="text-align: center; color: #888; padding: 40px 0;">
-                <p>Nenhum material disponível no momento.</p>
-            </div>
-        </section>
-
+        </div>
     </div>
 
     <script>
+        function updateCounters() {
+            const resources = JSON.parse(localStorage.getItem('resources') || '[]');
+            
+            const simuladosCount = resources.filter(r => r.category === 'simulados').length;
+            const videoaulasCount = resources.filter(r => r.category === 'videoaulas').length;
+            const materiaisCount = resources.filter(r => r.category === 'materiais').length;
+            
+            document.getElementById('simulados-count').textContent = simuladosCount;
+            document.getElementById('videoaulas-count').textContent = videoaulasCount;
+            document.getElementById('materiais-count').textContent = materiaisCount;
+            
+            // Adicionar classe empty se for 0
+            document.getElementById('simulados-count').classList.toggle('empty', simuladosCount === 0);
+            document.getElementById('videoaulas-count').classList.toggle('empty', videoaulasCount === 0);
+            document.getElementById('materiais-count').classList.toggle('empty', materiaisCount === 0);
+        }
+
         function showSection(sectionId) {
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.remove('active');
             });
             document.getElementById(sectionId).classList.add('active');
 
-            document.querySelectorAll('nav a').forEach(link => {
-                link.classList.remove('active-nav');
+            document.querySelectorAll('.sidebar-link').forEach(link => {
+                link.classList.remove('active');
             });
-            document.getElementById(`nav-${sectionId}`).classList.add('active-nav');
+            document.querySelector(`[data-section="${sectionId}"]`).classList.add('active');
         }
 
         function loadDynamicResources() {
@@ -423,7 +526,18 @@
             } else {
                 materiaisVazio.style.display = 'block';
             }
+
+            updateCounters();
         }
+
+        // Usar MutationObserver ou Proxy para monitorar mudanças no localStorage
+        const originalSetItem = localStorage.setItem;
+        localStorage.setItem = function(key, value) {
+            originalSetItem.call(this, key, value);
+            if (key === 'resources') {
+                loadDynamicResources();
+            }
+        };
 
         document.addEventListener('DOMContentLoaded', () => {
             loadDynamicResources();
@@ -435,6 +549,11 @@
         window.addEventListener('focus', () => {
             loadDynamicResources();
         });
+
+        // Atualizar contadores a cada segundo (para sincronização entre abas)
+        setInterval(() => {
+            updateCounters();
+        }, 1000);
     </script>
 
 </body>
