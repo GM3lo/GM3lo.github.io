@@ -1,11 +1,16 @@
 import os
 import sqlite3
 import uuid
+import secrets
 from functools import wraps
 from flask import Flask, render_template, request, redirect, url_for, session, send_from_directory, jsonify, flash
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
-app.secret_key = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
+app.secret_key = os.environ.get('SECRET_KEY') or secrets.token_hex(32)
+
+ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD')
+if not ADMIN_PASSWORD:
+    raise RuntimeError("ADMIN_PASSWORD environment variable is required")
 
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'pdf', 'doc', 'docx', 'ppt', 'pptx', 'txt', 'mp4', 'mp3', 'jpg', 'jpeg', 'png', 'gif', 'html'}
@@ -67,8 +72,7 @@ def uploaded_file(filename):
 def admin_login():
     if request.method == 'POST':
         password = request.form.get('password')
-        admin_password = os.environ.get('ADMIN_PASSWORD', 'admin123')
-        if password == admin_password:
+        if password == ADMIN_PASSWORD:
             session['admin_logged_in'] = True
             return redirect(url_for('admin_dashboard'))
         else:
