@@ -17,6 +17,7 @@ class MyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
 
 Handler = MyHTTPRequestHandler
 
+socketserver.TCPServer.allow_reuse_address = True
 with socketserver.TCPServer(("0.0.0.0", PORT), Handler) as httpd:
     print(f"Server running at http://0.0.0.0:{PORT}/")
     print(f"Serving files from: {os.path.abspath(DIRECTORY)}")
