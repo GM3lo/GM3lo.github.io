@@ -17,9 +17,8 @@
         header {
             background-color: #0f0f1a;
             color: #ffffff;
-            padding: 25px 20px;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            padding: 30px 20px;
+            box-shadow: 0 4px 12px rgba(106, 5, 173, 0.2);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -27,9 +26,10 @@
 
         header h1 {
             margin: 0;
-            font-size: 2.5em;
-            letter-spacing: 1px;
+            font-size: 2.2em;
+            letter-spacing: 1.5px;
             flex-grow: 1;
+            text-align: center;
         }
 
         .admin-link-header {
@@ -49,7 +49,7 @@
             display: flex;
             justify-content: center;
             border-bottom: 2px solid #6a05ad;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
             flex-wrap: wrap;
         }
 
@@ -57,11 +57,12 @@
             display: block;
             color: #ffffff;
             text-align: center;
-            padding: 16px 25px;
+            padding: 18px 30px;
             text-decoration: none;
             transition: background-color 0.3s ease, color 0.3s ease;
             font-weight: bold;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
+            font-size: 1em;
         }
 
         nav a:hover,
@@ -78,18 +79,18 @@
 
         .container {
             max-width: 1000px;
-            margin: 30px auto;
+            margin: 40px auto;
             padding: 0 20px;
         }
 
         .content-section {
             display: none;
-            padding: 30px;
+            padding: 40px;
             background-color: #22223b;
             border: 1px solid #4a007f;
-            border-radius: 12px;
-            margin-top: 20px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            border-radius: 14px;
+            margin-top: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
             animation: fadeIn 0.5s ease-in-out;
         }
 
@@ -104,36 +105,41 @@
 
         h2 {
             color: #be58f2;
-            border-bottom: 2px solid #be58f2;
-            padding-bottom: 10px;
-            margin-bottom: 25px;
-            font-size: 2em;
-            letter-spacing: 0.8px;
+            border-bottom: 3px solid #be58f2;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            margin-top: 0;
+            font-size: 2.1em;
+            letter-spacing: 1px;
         }
 
         p {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             color: #c0c0d0;
+            line-height: 1.8;
+            font-size: 1.05em;
         }
 
         /* Estilos para o conteúdo de exemplo (Simulados) */
         .example-list {
             list-style: none;
             padding: 0;
-            margin-top: 20px;
+            margin-top: 25px;
+            margin-bottom: 0;
         }
 
         .example-list li {
             background-color: #311d4e;
-            margin-bottom: 10px;
-            padding: 15px 20px;
-            border-radius: 8px;
+            margin-bottom: 15px;
+            padding: 18px 24px;
+            border-radius: 10px;
             border-left: 5px solid #be58f2;
             transition: transform 0.2s ease, background-color 0.2s ease;
+            font-size: 1.05em;
         }
 
         .example-list li:hover {
-            transform: translateX(5px);
+            transform: translateX(8px);
             background-color: #3e265c;
         }
 
@@ -142,38 +148,42 @@
             display: block;
             width: 100%;
             text-align: center;
-            padding: 20px;
+            padding: 25px;
             font-weight: bold;
-            font-size: 1.2em;
-            border-radius: 12px;
+            font-size: 1.25em;
+            border-radius: 14px;
             text-decoration: none;
-            margin-bottom: 20px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-bottom: 25px;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            border: none;
+            cursor: pointer;
         }
 
         /* Estilo Específico para o Botão do Simulados */
         .simulado-button {
             background-color: #be58f2; /* Roxo brilhante */
             color: #0f0f1a; /* Texto escuro */
-            box-shadow: 0 4px 10px rgba(190, 88, 242, 0.4);
+            box-shadow: 0 6px 15px rgba(190, 88, 242, 0.5);
         }
         
         .simulado-button:hover {
             background-color: #d175ff;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(190, 88, 242, 0.6);
         }
 
         /* Estilo Específico para o NOVO Botão do YouTube */
         .youtube-button {
             background-color: #ff0000; /* Vermelho do YouTube */
             color: #ffffff; /* Texto branco */
-            box-shadow: 0 4px 10px rgba(255, 0, 0, 0.4);
-            margin-top: 25px; /* Separar do vídeo */
+            box-shadow: 0 6px 15px rgba(255, 0, 0, 0.5);
+            margin-top: 30px; /* Separar do vídeo */
         }
 
         .youtube-button:hover {
             background-color: #cc0000;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
         }
 
         /* Estilo para o vídeo responsivo */
@@ -184,8 +194,10 @@
             overflow: hidden;
             max-width: 100%;
             background: #000;
-            border-radius: 8px;
-            margin-top: 20px;
+            border-radius: 12px;
+            margin-top: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
         }
 
         .video-wrapper iframe {
@@ -199,15 +211,15 @@
 
         .dynamic-resource {
             background-color: #311d4e;
-            margin-bottom: 10px;
-            padding: 15px 20px;
-            border-radius: 8px;
+            margin-bottom: 15px;
+            padding: 18px 24px;
+            border-radius: 10px;
             border-left: 5px solid #6a05ad;
             transition: transform 0.2s ease, background-color 0.2s ease;
         }
 
         .dynamic-resource:hover {
-            transform: translateX(5px);
+            transform: translateX(8px);
             background-color: #3e265c;
         }
 
@@ -222,9 +234,10 @@
         }
 
         .resource-desc {
-            font-size: 0.9em;
+            font-size: 0.95em;
             color: #a0a0b0;
-            margin-top: 5px;
+            margin-top: 8px;
+            line-height: 1.5;
         }
     </style>
 </head>
