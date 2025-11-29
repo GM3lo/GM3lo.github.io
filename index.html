@@ -20,12 +20,27 @@
             padding: 25px 20px;
             text-align: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         header h1 {
             margin: 0;
             font-size: 2.5em;
             letter-spacing: 1px;
+            flex-grow: 1;
+        }
+
+        .admin-link-header {
+            font-size: 24px;
+            cursor: pointer;
+            opacity: 0.3;
+            transition: opacity 0.3s;
+        }
+
+        .admin-link-header:hover {
+            opacity: 0.7;
         }
 
         nav {
@@ -35,6 +50,7 @@
             justify-content: center;
             border-bottom: 2px solid #6a05ad;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            flex-wrap: wrap;
         }
 
         nav a {
@@ -52,6 +68,12 @@
         nav a.active-nav {
             background-color: #6a05ad;
             color: #ffffff;
+        }
+
+        nav a.admin-nav {
+            font-size: 12px;
+            padding: 16px 15px;
+            opacity: 0.6;
         }
 
         .container {
@@ -174,17 +196,49 @@
             height: 100%;
             border: 0;
         }
+
+        .dynamic-resource {
+            background-color: #311d4e;
+            margin-bottom: 10px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 5px solid #6a05ad;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .dynamic-resource:hover {
+            transform: translateX(5px);
+            background-color: #3e265c;
+        }
+
+        .dynamic-resource a {
+            color: #be58f2;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .dynamic-resource a:hover {
+            text-decoration: underline;
+        }
+
+        .resource-desc {
+            font-size: 0.9em;
+            color: #a0a0b0;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
 
     <header>
         <h1>📚 Minha Plataforma de Estudos</h1>
+        <a href="admin.html" class="admin-link-header" title="Admin">⚙️</a>
     </header>
 
     <nav>
         <a href="#simulados" id="nav-simulados" onclick="showSection('simulados')">Simulados</a>
         <a href="#videoaulas" id="nav-videoaulas" onclick="showSection('videoaulas')">Videoaulas</a>
+        <a href="#materiais" id="nav-materiais" onclick="showSection('materiais')">Materiais Complementares</a>
     </nav>
 
     <div class="container">
@@ -197,16 +251,17 @@
             </a>
             
             <p>Outros simulados para testar seus conhecimentos:</p>
-            <ul class="example-list">
+            <ul class="example-list" id="simulados-list">
                 <li>Simulado de Matemática Avançada - 20 questões</li>
                 <li>Simulado de Português - Interpretação de Texto</li>
                 <li>Simulado Completo - ENEM (Todas as áreas)</li>
                 <li>Simulado de Inglês - Gramática e Vocabulário</li>
             </ul>
+            <div id="simulados-dinamicos"></div>
         </section>
 
         <section id="videoaulas" class="content-section">
-            <h2>🎬 Videoaula em Destaque</h2>
+            <h2>🎬 Videoaulas em Destaque</h2>
             
             <p class="font-bold text-lg text-[#be58f2]">Aula: O Papel da Vigilância Sanitária na Saúde Pública</p>
 
@@ -228,6 +283,17 @@
             </a>
 
             <p class="mt-4 text-sm text-gray-400">Clique no player acima para começar a aula. Use o botão vermelho para acessar o canal com todas as videoaulas.</p>
+
+            <div id="videoaulas-dinamicas" style="margin-top: 30px;"></div>
+        </section>
+
+        <section id="materiais" class="content-section">
+            <h2>📄 Materiais Complementares</h2>
+            <p>Acesse aqui materiais de apoio, resumos, guias de estudo e recursos adicionais.</p>
+            <div id="materiais-dinamicos"></div>
+            <div id="materiais-vazio" style="text-align: center; color: #888; padding: 40px 0;">
+                <p>Nenhum material disponível no momento.</p>
+            </div>
         </section>
 
     </div>
@@ -245,9 +311,59 @@
             document.getElementById(`nav-${sectionId}`).classList.add('active-nav');
         }
 
+        function loadDynamicResources() {
+            const resources = JSON.parse(localStorage.getItem('resources') || '[]');
+            
+            // Simulados
+            const simulados = resources.filter(r => r.category === 'simulados');
+            const simuladosDiv = document.getElementById('simulados-dinamicos');
+            simuladosDiv.innerHTML = simulados.map(r => `
+                <div class="dynamic-resource">
+                    <a href="${r.url}" target="_blank">${r.title}</a>
+                    ${r.description ? `<div class="resource-desc">${r.description}</div>` : ''}
+                </div>
+            `).join('');
+
+            // Videoaulas
+            const videoaulas = resources.filter(r => r.category === 'videoaulas');
+            const videoaulasDiv = document.getElementById('videoaulas-dinamicas');
+            if (videoaulas.length > 0) {
+                videoaulasDiv.innerHTML = '<h3 style="color: #be58f2; margin-top: 30px;">Outras Videoaulas</h3>' + 
+                    videoaulas.map(r => `
+                        <div class="dynamic-resource">
+                            <a href="${r.url}" target="_blank">${r.title}</a>
+                            ${r.description ? `<div class="resource-desc">${r.description}</div>` : ''}
+                        </div>
+                    `).join('');
+            }
+
+            // Materiais Complementares
+            const materiais = resources.filter(r => r.category === 'materiais');
+            const materiaisDiv = document.getElementById('materiais-dinamicos');
+            const materiaisVazio = document.getElementById('materiais-vazio');
+            
+            if (materiais.length > 0) {
+                materiaisDiv.innerHTML = materiais.map(r => `
+                    <div class="dynamic-resource">
+                        <a href="${r.url}" target="_blank">${r.title}</a>
+                        ${r.description ? `<div class="resource-desc">${r.description}</div>` : ''}
+                    </div>
+                `).join('');
+                materiaisVazio.style.display = 'none';
+            } else {
+                materiaisVazio.style.display = 'block';
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
+            loadDynamicResources();
             const initialSection = window.location.hash ? window.location.hash.substring(1) : 'simulados';
             showSection(initialSection);
+        });
+
+        // Recarregar recursos quando volta da página de admin
+        window.addEventListener('focus', () => {
+            loadDynamicResources();
         });
     </script>
 

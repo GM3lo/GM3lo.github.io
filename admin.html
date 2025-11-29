@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Plataforma de Estudos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+
+    <div id="login-container" class="flex items-center justify-center min-h-screen bg-gray-900">
+        <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full border border-purple-500">
+            <h1 class="text-3xl font-bold mb-6 text-center text-purple-400">Admin Panel</h1>
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Senha do Admin</label>
+                    <input type="password" id="admin-password" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded text-white focus:outline-none focus:border-purple-500" required>
+                </div>
+                <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">Entrar</button>
+            </form>
+            <p class="text-center text-gray-400 text-sm mt-4">Senha padrão: <code class="bg-gray-700 px-2 py-1">admin123</code></p>
+        </div>
+    </div>
+
+    <div id="admin-container" class="hidden">
+        <nav class="bg-gray-800 border-b border-purple-500">
+            <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-purple-400">Painel de Admin</h1>
+                <button onclick="logout()" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded">Sair</button>
+            </div>
+        </nav>
+
+        <div class="max-w-6xl mx-auto px-4 py-8">
+            <div class="grid grid-cols-2 gap-4 mb-8">
+                <button onclick="switchTab('upload')" class="tab-btn bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded font-bold active" data-tab="upload">
+                    📤 Upload de Recursos
+                </button>
+                <button onclick="switchTab('list')" class="tab-btn bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded font-bold" data-tab="list">
+                    📋 Listar Recursos
+                </button>
+            </div>
+
+            <!-- Upload Tab -->
+            <div id="upload-tab" class="tab-content bg-gray-800 p-6 rounded-lg border border-gray-700">
+                <h2 class="text-2xl font-bold mb-6">Adicionar Novo Recurso</h2>
+                <form id="upload-form" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Título do Recurso</label>
+                        <input type="text" id="resource-title" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded text-white focus:outline-none focus:border-purple-500" required>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-2">URL ou Link</label>
+                        <input type="url" id="resource-url" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded text-white focus:outline-none focus:border-purple-500" placeholder="https://exemplo.com/recurso" required>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Categoria</label>
+                        <select id="resource-category" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded text-white focus:outline-none focus:border-purple-500">
+                            <option value="simulados">Simulados</option>
+                            <option value="videoaulas">Videoaulas</option>
+                            <option value="materiais">Materiais Complementares</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Descrição (opcional)</label>
+                        <textarea id="resource-description" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded text-white focus:outline-none focus:border-purple-500" rows="3"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                        ✅ Adicionar Recurso
+                    </button>
+                </form>
+            </div>
+
+            <!-- List Tab -->
+            <div id="list-tab" class="tab-content hidden bg-gray-800 p-6 rounded-lg border border-gray-700">
+                <h2 class="text-2xl font-bold mb-6">Recursos Cadastrados</h2>
+                <div id="resources-list" class="space-y-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const DEFAULT_PASSWORD = "admin123";
+
+        function checkLogin() {
+            const isLoggedIn = localStorage.getItem('admin-logged-in') === 'true';
+            if (!isLoggedIn) {
+                document.getElementById('login-container').classList.remove('hidden');
+                document.getElementById('admin-container').classList.add('hidden');
+            } else {
+                document.getElementById('login-container').classList.add('hidden');
+                document.getElementById('admin-container').classList.remove('hidden');
+                loadResourcesList();
+            }
+        }
+
+        document.getElementById('login-form')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const password = document.getElementById('admin-password').value;
+            if (password === DEFAULT_PASSWORD) {
+                localStorage.setItem('admin-logged-in', 'true');
+                checkLogin();
+            } else {
+                alert('Senha incorreta!');
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem('admin-logged-in');
+            checkLogin();
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.remove('bg-purple-600', 'hover:bg-purple-700');
+                el.classList.add('bg-gray-700', 'hover:bg-gray-600');
+            });
+
+            document.getElementById(tab + '-tab').classList.remove('hidden');
+            document.querySelector(`[data-tab="${tab}"]`).classList.remove('bg-gray-700', 'hover:bg-gray-600');
+            document.querySelector(`[data-tab="${tab}"]`).classList.add('bg-purple-600', 'hover:bg-purple-700');
+        }
+
+        document.getElementById('upload-form')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const resources = JSON.parse(localStorage.getItem('resources') || '[]');
+            const newResource = {
+                id: Date.now(),
+                title: document.getElementById('resource-title').value,
+                url: document.getElementById('resource-url').value,
+                category: document.getElementById('resource-category').value,
+                description: document.getElementById('resource-description').value,
+                createdAt: new Date().toLocaleString()
+            };
+
+            resources.push(newResource);
+            localStorage.setItem('resources', JSON.stringify(resources));
+
+            alert('Recurso adicionado com sucesso!');
+            document.getElementById('upload-form').reset();
+            loadResourcesList();
+            switchTab('list');
+        });
+
+        function loadResourcesList() {
+            const resources = JSON.parse(localStorage.getItem('resources') || '[]');
+            const listContainer = document.getElementById('resources-list');
+
+            if (resources.length === 0) {
+                listContainer.innerHTML = '<p class="text-gray-400">Nenhum recurso cadastrado ainda.</p>';
+                return;
+            }
+
+            listContainer.innerHTML = resources.map(resource => `
+                <div class="bg-gray-700 p-4 rounded border border-gray-600 flex justify-between items-start">
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg">${resource.title}</h3>
+                        <p class="text-sm text-gray-400">Categoria: <span class="text-purple-400">${resource.category}</span></p>
+                        <p class="text-sm text-gray-400">${resource.description}</p>
+                        <p class="text-xs text-gray-500 mt-2">URL: <a href="${resource.url}" target="_blank" class="text-blue-400 hover:underline">${resource.url}</a></p>
+                        <p class="text-xs text-gray-500">Criado: ${resource.createdAt}</p>
+                    </div>
+                    <button onclick="deleteResource(${resource.id})" class="bg-red-600 hover:bg-red-700 px-3 py-2 rounded text-sm ml-4">
+                        🗑️ Deletar
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function deleteResource(id) {
+            if (!confirm('Tem certeza que quer deletar este recurso?')) return;
+            let resources = JSON.parse(localStorage.getItem('resources') || '[]');
+            resources = resources.filter(r => r.id !== id);
+            localStorage.setItem('resources', JSON.stringify(resources));
+            loadResourcesList();
+        }
+
+        checkLogin();
+    </script>
+
+</body>
+</html>
