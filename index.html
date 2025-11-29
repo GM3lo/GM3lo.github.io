@@ -368,7 +368,7 @@
 <body>
 
     <header>
-        <h1>🤓 Nerds de Plantão</h1>
+        <h1>⚕️ Nerds de Plantão - Medicina</h1>
         <a href="admin.html" class="admin-link-header" title="Admin">⚙️</a>
     </header>
 
@@ -377,19 +377,19 @@
             <ul class="sidebar-menu">
                 <li class="sidebar-item">
                     <a class="sidebar-link active" onclick="showSection('simulados')" data-section="simulados">
-                        <span>🧠 Simulados</span>
+                        <span>📋 Simulados USMLE</span>
                         <span class="counter-badge" id="simulados-count">0</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" onclick="showSection('videoaulas')" data-section="videoaulas">
-                        <span>🎬 Videoaulas</span>
+                        <span>🎓 Aulas Magistrais</span>
                         <span class="counter-badge" id="videoaulas-count">0</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" onclick="showSection('materiais')" data-section="materiais">
-                        <span>📄 Materiais</span>
+                        <span>📚 Guias Clínicos</span>
                         <span class="counter-badge" id="materiais-count">0</span>
                     </a>
                 </li>
@@ -399,33 +399,35 @@
         <div class="content-area">
             <div class="container">
                 <section id="simulados" class="content-section active">
-                    <h2>🧠 Simulados Disponíveis</h2>
+                    <h2>📋 Simulados USMLE & Clínicos</h2>
+                    <p>Prepare-se com simulados de alta qualidade que cobrem as principais áreas da medicina. Cada questão é baseada em cenários clínicos reais e preparada por médicos experientes.</p>
                     
                     <a href="simulado_vigilancia.html" target="_blank" class="primary-button simulado-button">
-                        🚨 Simulado: Vigilância e PNI (50 Questões)
+                        💉 Simulado: Vigilância em Saúde e PNI (50 Questões)
                     </a>
                     
-                    <p>Outros simulados para testar seus conhecimentos:</p>
+                    <p style="margin-top: 35px;">Outros simulados disponíveis:</p>
                     <ul class="example-list" id="simulados-list">
-                        <li>Simulado de Matemática Avançada - 20 questões</li>
-                        <li>Simulado de Português - Interpretação de Texto</li>
-                        <li>Simulado Completo - ENEM (Todas as áreas)</li>
-                        <li>Simulado de Inglês - Gramática e Vocabulário</li>
+                        <li>🫀 Cardiologia Clínica - Questões de USMLE Step 1 & 2</li>
+                        <li>🫁 Pneumologia - Fisiopatologia e Diagnóstico Diferencial</li>
+                        <li>🧬 Genética Médica - Herança e Síndromes Genéticas</li>
+                        <li>🦠 Infectologia - Doenças Infecciosas e Epidemiologia</li>
                     </ul>
                     <div id="simulados-dinamicos"></div>
                 </section>
 
                 <section id="videoaulas" class="content-section">
-                    <h2>🎬 Videoaulas em Destaque</h2>
+                    <h2>🎓 Aulas Magistrais Médicas</h2>
+                    <p>Assista a aulas expositivas de alta qualidade ministradas por especialistas em cada área da medicina. Aprenda os conceitos fundamentais e as aplicações clínicas práticas.</p>
                     
-                    <p class="font-bold text-lg text-[#be58f2]">Aula: O Papel da Vigilância Sanitária na Saúde Pública</p>
+                    <p style="font-weight: 600; font-size: 1.1em; color: #be58f2; margin-top: 25px;">Aula: Vigilância em Saúde Pública e Programa Nacional de Imunizações</p>
 
                     <div class="video-wrapper">
                         <iframe 
                             width="560" 
                             height="315" 
                             src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=c-V-m9eB-t6dO7-P" 
-                            title="YouTube video player" 
+                            title="Aula magistral - YouTube video player" 
                             frameborder="0" 
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                             referrerpolicy="strict-origin-when-cross-origin" 
@@ -434,20 +436,20 @@
                     </div>
 
                     <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0&list=RDxvFZjo5PgG0&start_radio=1" target="_blank" class="primary-button youtube-button">
-                        ▶️ ACESSE NOSSO CANAL COMPLETO NO YOUTUBE
+                        ▶️ ACESSE NOSSA BIBLIOTECA DE VÍDEOS
                     </a>
 
-                    <p class="mt-4 text-sm text-gray-400">Clique no player acima para começar a aula. Use o botão vermelho para acessar o canal com todas as videoaulas.</p>
+                    <p style="margin-top: 20px; font-size: 0.95em; color: #a0a0b0;">Explore nossa biblioteca completa com aulas de todas as especialidades médicas: Anatomia, Fisiologia, Farmacologia, Patologia, Clínica Médica e muito mais.</p>
 
                     <div id="videoaulas-dinamicas" style="margin-top: 30px;"></div>
                 </section>
 
                 <section id="materiais" class="content-section">
-                    <h2>📄 Materiais Complementares</h2>
-                    <p>Acesse aqui materiais de apoio, resumos, guias de estudo e recursos adicionais.</p>
+                    <h2>📚 Guias Clínicos & Referências</h2>
+                    <p>Acesse protocolos clínicos, guias de diagnóstico e tratamento, resumos anatômicos, tabelas farmacológicas e outros recursos essenciais para sua formação médica.</p>
                     <div id="materiais-dinamicos"></div>
                     <div id="materiais-vazio" style="text-align: center; color: #888; padding: 40px 0;">
-                        <p>Nenhum material disponível no momento.</p>
+                        <p>📖 Nenhum guia disponível no momento. Verifique em breve!</p>
                     </div>
                 </section>
             </div>
