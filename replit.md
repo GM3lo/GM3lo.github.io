@@ -1,16 +1,17 @@
-# Plataforma de Estudos - Educational Platform
+# Nerds de Plantão - Educational Platform
 
 ## Overview
-This is a Portuguese-language educational platform that provides:
+"Nerds de Plantão" is a Portuguese-language educational platform that provides:
 - Interactive quizzes (simulados) on various medical/health topics
 - Video lessons (videoaulas) 
 - Supplementary materials (materiais complementares)
 - Admin panel for adding resources dynamically
 - A clean, modern interface with purple and dark theme
 
-**Current State**: Fully functional with admin panel. The platform is a static website serving HTML pages with embedded JavaScript for quiz functionality and dynamic resource management.
+**Current State**: Fully functional with admin panel. Premium modern design with gradients, animations, and professional UI. The platform is a static website serving HTML pages with embedded JavaScript for quiz functionality and dynamic resource management.
 
 **Last Updated**: November 29, 2025
+**Platform Name**: Nerds de Plantão
 
 ## Project Architecture
 
