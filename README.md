@@ -55,6 +55,40 @@ O servidor Flask será iniciado em `http://0.0.0.0:5000` com:
 - Cache desabilitado
 - Banco de dados SQLite auto-inicializado
 
+### Abrir a Página Principal
+
+Para abrir o `index.html` automaticamente, execute:
+
+```bash
+python -m webbrowser -t http://localhost:5000 & python app.py
+```
+
+Ou use este script Python:
+
+```python
+import webbrowser
+import time
+from subprocess import Popen
+
+# Inicia o servidor Flask
+server = Popen(['python', 'app.py'])
+time.sleep(2)  # Aguarda o servidor iniciar
+
+# Abre a página no navegador
+webbrowser.open('http://localhost:5000')
+
+try:
+    server.wait()
+except KeyboardInterrupt:
+    server.terminate()
+```
+
+Salve como `run.py` e execute:
+
+```bash
+python run.py
+```
+
 ## 📊 Esquema do Banco de Dados
 
 ```sql
