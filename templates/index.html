@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Estudos - Black & Purple</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #0f0f1a;
+            color: #ffffff;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            letter-spacing: 1px;
+        }
+
+        .admin-btn {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.6);
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.85em;
+            transition: all 0.3s ease;
+        }
+
+        .admin-btn:hover {
+            background-color: rgba(190, 88, 242, 0.3);
+            border-color: #be58f2;
+            color: #be58f2;
+        }
+
+        nav {
+            background-color: #2e0f4f;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            border-bottom: 2px solid #6a05ad;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        nav a {
+            display: block;
+            color: #ffffff;
+            text-align: center;
+            padding: 16px 25px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        nav a:hover,
+        nav a.active-nav {
+            background-color: #6a05ad;
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .content-section {
+            display: none;
+            padding: 30px;
+            background-color: #22223b;
+            border: 1px solid #4a007f;
+            border-radius: 12px;
+            margin-top: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: #be58f2;
+            border-bottom: 2px solid #be58f2;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            font-size: 2em;
+            letter-spacing: 0.8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #c0c0d0;
+        }
+
+        .example-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .example-list li {
+            background-color: #311d4e;
+            margin-bottom: 10px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 5px solid #be58f2;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .example-list li:hover {
+            transform: translateX(5px);
+            background-color: #3e265c;
+        }
+
+        .example-list li a {
+            color: #e0e0e0;
+            text-decoration: none;
+            display: block;
+        }
+
+        .example-list li a:hover {
+            color: #be58f2;
+        }
+
+        .primary-button {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            font-weight: bold;
+            font-size: 1.2em;
+            border-radius: 12px;
+            text-decoration: none;
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        .simulado-button {
+            background-color: #be58f2;
+            color: #0f0f1a;
+            box-shadow: 0 4px 10px rgba(190, 88, 242, 0.4);
+        }
+        
+        .simulado-button:hover {
+            background-color: #d175ff;
+            transform: translateY(-2px);
+        }
+
+        .youtube-button {
+            background-color: #ff0000;
+            color: #ffffff;
+            box-shadow: 0 4px 10px rgba(255, 0, 0, 0.4);
+            margin-top: 25px;
+        }
+
+        .youtube-button:hover {
+            background-color: #cc0000;
+            transform: translateY(-2px);
+        }
+
+        .material-button {
+            background-color: #10b981;
+            color: #ffffff;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);
+        }
+
+        .material-button:hover {
+            background-color: #059669;
+            transform: translateY(-2px);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .empty-message {
+            text-align: center;
+            color: #888;
+            padding: 40px;
+            font-style: italic;
+        }
+
+        .file-icon {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .file-description {
+            font-size: 0.85em;
+            color: #999;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Minha Plataforma de Estudos</h1>
+        <a href="/admin/login" class="admin-btn">Admin</a>
+    </header>
+
+    <nav>
+        <a href="#simulados" id="nav-simulados" onclick="showSection('simulados')">Simulados</a>
+        <a href="#videoaulas" id="nav-videoaulas" onclick="showSection('videoaulas')">Videoaulas</a>
+        <a href="#materiais" id="nav-materiais" onclick="showSection('materiais')">Materiais Complementares</a>
+    </nav>
+
+    <div class="container">
+        
+        <section id="simulados" class="content-section active">
+            <h2>Simulados Disponíveis</h2>
+            
+            <a href="/simulado_vigilancia.html" target="_blank" class="primary-button simulado-button">
+                Simulado: Vigilância e PNI (50 Questões)
+            </a>
+            
+            {% if simulados %}
+            <p>Outros simulados para testar seus conhecimentos:</p>
+            <ul class="example-list">
+                {% for s in simulados %}
+                <li>
+                    <a href="/uploads/{{ s.filename }}" target="_blank">
+                        <span class="file-icon">📝</span>{{ s.title }}
+                        {% if s.description %}
+                        <div class="file-description">{{ s.description }}</div>
+                        {% endif %}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="empty-message">Nenhum simulado adicional disponível ainda.</p>
+            {% endif %}
+        </section>
+
+        <section id="videoaulas" class="content-section">
+            <h2>Videoaulas</h2>
+            
+            <p class="font-bold text-lg" style="color: #be58f2;">Aula: O Papel da Vigilância Sanitária na Saúde Pública</p>
+
+            <div class="video-wrapper">
+                <iframe 
+                    width="560" 
+                    height="315" 
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=c-V-m9eB-t6dO7-P" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0&list=RDxvFZjo5PgG0&start_radio=1" target="_blank" class="primary-button youtube-button">
+                ACESSE NOSSO CANAL COMPLETO NO YOUTUBE
+            </a>
+
+            {% if aulas %}
+            <p style="margin-top: 30px;">Mais videoaulas disponíveis:</p>
+            <ul class="example-list">
+                {% for a in aulas %}
+                <li>
+                    <a href="/uploads/{{ a.filename }}" target="_blank">
+                        <span class="file-icon">🎬</span>{{ a.title }}
+                        {% if a.description %}
+                        <div class="file-description">{{ a.description }}</div>
+                        {% endif %}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            <p class="mt-4 text-sm" style="color: #888; margin-top: 20px;">Clique no player acima para começar a aula. Use o botão vermelho para acessar o canal com todas as videoaulas.</p>
+        </section>
+
+        <section id="materiais" class="content-section">
+            <h2>Materiais Complementares</h2>
+            
+            {% if materiais %}
+            <p>Acesse os materiais de apoio para seus estudos:</p>
+            <ul class="example-list">
+                {% for m in materiais %}
+                <li>
+                    <a href="/uploads/{{ m.filename }}" target="_blank">
+                        <span class="file-icon">📚</span>{{ m.title }}
+                        {% if m.description %}
+                        <div class="file-description">{{ m.description }}</div>
+                        {% endif %}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="empty-message">Nenhum material complementar disponível ainda. Em breve teremos novos conteúdos!</p>
+            {% endif %}
+        </section>
+
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('active-nav');
+            });
+            document.getElementById(`nav-${sectionId}`).classList.add('active-nav');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash ? window.location.hash.substring(1) : 'simulados';
+            const validSections = ['simulados', 'videoaulas', 'materiais'];
+            const initialSection = validSections.includes(hash) ? hash : 'simulados';
+            showSection(initialSection);
+        });
+    </script>
+
+</body>
+</html>
