@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import http.server
 import socketserver
 import os
@@ -16,9 +17,10 @@ class MyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         super().end_headers()
 
 Handler = MyHTTPRequestHandler
-
 socketserver.TCPServer.allow_reuse_address = True
-with socketserver.TCPServer(("0.0.0.0", PORT), Handler) as httpd:
-    print(f"Server running at http://0.0.0.0:{PORT}/")
-    print(f"Serving files from: {os.path.abspath(DIRECTORY)}")
-    httpd.serve_forever()
+
+if __name__ == "__main__":
+    with socketserver.TCPServer(("0.0.0.0", PORT), Handler) as httpd:
+        print(f"Server running at http://0.0.0.0:{PORT}/")
+        print(f"Serving files from: {os.path.abspath(DIRECTORY)}")
+        httpd.serve_forever()
