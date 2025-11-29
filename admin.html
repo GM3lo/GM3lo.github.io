@@ -4,83 +4,390 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Plataforma de Estudos</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1a3e 50%, #0f1830 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        input, select, textarea {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .login-box {
+            background: linear-gradient(135deg, rgba(34, 34, 59, 0.8) 0%, rgba(26, 26, 50, 0.9) 100%);
+            padding: 50px;
+            border-radius: 18px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(190, 88, 242, 0.15);
+            max-width: 420px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+        }
+
+        .login-box h1 {
+            background: linear-gradient(135deg, #be58f2 0%, #8b3dff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+            color: #c0c0d0;
+            letter-spacing: 0.3px;
+        }
+
+        input[type="password"], input[type="text"], input[type="url"], select, textarea {
+            padding: 14px 16px;
+            background: rgba(49, 29, 78, 0.4);
+            border: 1px solid rgba(190, 88, 242, 0.2);
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        input[type="password"]:focus, input[type="text"]:focus, input[type="url"]:focus, select:focus, textarea:focus {
+            outline: none;
+            background: rgba(49, 29, 78, 0.6);
+            border-color: #be58f2;
+            box-shadow: 0 0 15px rgba(190, 88, 242, 0.2);
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, #be58f2 0%, #8b3dff 100%);
+            color: #ffffff;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(190, 88, 242, 0.4);
+            letter-spacing: 0.5px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(190, 88, 242, 0.5);
+        }
+
+        .login-info {
+            text-align: center;
+            color: #888;
+            font-size: 0.9em;
+            margin-top: 20px;
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, rgba(10, 14, 39, 0.95) 0%, rgba(26, 26, 62, 0.95) 100%);
+            padding: 30px 40px;
+            border-bottom: 1px solid rgba(190, 88, 242, 0.1);
+            box-shadow: 0 10px 40px rgba(106, 5, 173, 0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .admin-header h1 {
+            background: linear-gradient(135deg, #be58f2 0%, #8b3dff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+            font-size: 2em;
+            font-weight: 700;
+        }
+
+        .logout-btn {
+            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+            color: #ffffff;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.3);
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(255, 0, 0, 0.4);
+        }
+
+        .admin-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .tab-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .tab-btn {
+            padding: 18px 24px;
+            background: linear-gradient(135deg, rgba(49, 29, 78, 0.6) 0%, rgba(38, 22, 60, 0.8) 100%);
+            color: #e0e0e0;
+            border: 1px solid rgba(190, 88, 242, 0.1);
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #be58f2 0%, #8b3dff 100%);
+            color: #ffffff;
+            border-color: #be58f2;
+            box-shadow: 0 8px 25px rgba(190, 88, 242, 0.4);
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+            border-color: #be58f2;
+        }
+
+        .tab-content {
+            display: none;
+            background: linear-gradient(135deg, rgba(34, 34, 59, 0.8) 0%, rgba(26, 26, 50, 0.9) 100%);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid rgba(190, 88, 242, 0.15);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content h2 {
+            background: linear-gradient(135deg, #be58f2 0%, #8b3dff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2em;
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .form-group-row {
+            margin-bottom: 20px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: #ffffff;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
+            width: 100%;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(34, 197, 94, 0.5);
+        }
+
+        .resources-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .resource-item {
+            background: linear-gradient(135deg, rgba(49, 29, 78, 0.6) 0%, rgba(38, 22, 60, 0.8) 100%);
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid rgba(190, 88, 242, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .resource-item:hover {
+            box-shadow: 0 8px 25px rgba(190, 88, 242, 0.2);
+            border-color: rgba(190, 88, 242, 0.2);
+        }
+
+        .resource-info {
+            flex: 1;
+        }
+
+        .resource-item h3 {
+            margin: 0 0 10px 0;
+            color: #be58f2;
+            font-size: 1.2em;
+        }
+
+        .resource-item p {
+            margin: 8px 0;
+            color: #a0a0b0;
+            font-size: 0.95em;
+        }
+
+        .resource-url {
+            color: #6b7aff;
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .resource-url:hover {
+            text-decoration: underline;
+        }
+
+        .delete-btn {
+            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
+        }
+
+        .delete-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 0, 0, 0.4);
+        }
+
+        .empty-message {
+            text-align: center;
+            color: #666;
+            padding: 40px;
+            font-size: 1.1em;
+        }
+
+        #admin-container {
+            display: none;
+        }
+
+        #admin-container.show {
+            display: block;
+        }
     </style>
 </head>
-<body class="bg-gray-900 text-white min-h-screen">
+<body>
 
-    <div id="login-container" class="flex items-center justify-center min-h-screen bg-gray-900">
-        <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full border border-purple-500">
-            <h1 class="text-3xl font-bold mb-6 text-center text-purple-400">Admin Panel</h1>
-            <form id="login-form" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium mb-2">Senha do Admin</label>
-                    <input type="password" id="admin-password" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded text-white focus:outline-none focus:border-purple-500" required>
+    <div id="login-container">
+        <div class="login-box">
+            <h1>🔐 Admin Panel</h1>
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="admin-password">Senha do Admin</label>
+                    <input type="password" id="admin-password" required>
                 </div>
-                <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">Entrar</button>
+                <button type="submit" class="login-btn">Entrar</button>
             </form>
-            <p class="text-center text-gray-400 text-sm mt-4">Senha: <code class="bg-gray-700 px-2 py-1">••••••••••</code></p>
+            <p class="login-info">Digite a senha para acessar o painel</p>
         </div>
     </div>
 
-    <div id="admin-container" class="hidden">
-        <nav class="bg-gray-800 border-b border-purple-500">
-            <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-                <h1 class="text-2xl font-bold text-purple-400">Painel de Admin</h1>
-                <button onclick="logout()" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded">Sair</button>
-            </div>
-        </nav>
+    <div id="admin-container">
+        <div class="admin-header">
+            <h1>Painel de Administração</h1>
+            <button class="logout-btn" onclick="logout()">Sair</button>
+        </div>
 
-        <div class="max-w-6xl mx-auto px-4 py-8">
-            <div class="grid grid-cols-2 gap-4 mb-8">
-                <button onclick="switchTab('upload')" class="tab-btn bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded font-bold active" data-tab="upload">
-                    📤 Upload de Recursos
+        <div class="admin-container">
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="switchTab('upload')" data-tab="upload">
+                    📤 Adicionar Recurso
                 </button>
-                <button onclick="switchTab('list')" class="tab-btn bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded font-bold" data-tab="list">
-                    📋 Listar Recursos
+                <button class="tab-btn" onclick="switchTab('list')" data-tab="list">
+                    📋 Ver Recursos
                 </button>
             </div>
 
             <!-- Upload Tab -->
-            <div id="upload-tab" class="tab-content bg-gray-800 p-6 rounded-lg border border-gray-700">
-                <h2 class="text-2xl font-bold mb-6">Adicionar Novo Recurso</h2>
-                <form id="upload-form" class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Título do Recurso</label>
-                        <input type="text" id="resource-title" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded text-white focus:outline-none focus:border-purple-500" required>
+            <div id="upload-tab" class="tab-content active">
+                <h2>Adicionar Novo Recurso</h2>
+                <form id="upload-form">
+                    <div class="form-group-row">
+                        <label>Título do Recurso</label>
+                        <input type="text" id="resource-title" required>
                     </div>
 
-                    <div>
-                        <label class="block text-sm font-medium mb-2">URL ou Link</label>
-                        <input type="url" id="resource-url" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded text-white focus:outline-none focus:border-purple-500" placeholder="https://exemplo.com/recurso" required>
+                    <div class="form-group-row">
+                        <label>URL ou Link</label>
+                        <input type="url" id="resource-url" placeholder="https://exemplo.com/recurso" required>
                     </div>
 
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Categoria</label>
-                        <select id="resource-category" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded text-white focus:outline-none focus:border-purple-500">
+                    <div class="form-group-row">
+                        <label>Categoria</label>
+                        <select id="resource-category">
                             <option value="simulados">Simulados</option>
                             <option value="videoaulas">Videoaulas</option>
                             <option value="materiais">Materiais Complementares</option>
                         </select>
                     </div>
 
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Descrição (opcional)</label>
-                        <textarea id="resource-description" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded text-white focus:outline-none focus:border-purple-500" rows="3"></textarea>
+                    <div class="form-group-row">
+                        <label>Descrição (opcional)</label>
+                        <textarea id="resource-description" rows="4"></textarea>
                     </div>
 
-                    <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                        ✅ Adicionar Recurso
-                    </button>
+                    <button type="submit" class="submit-btn">✅ Adicionar Recurso</button>
                 </form>
             </div>
 
             <!-- List Tab -->
-            <div id="list-tab" class="tab-content hidden bg-gray-800 p-6 rounded-lg border border-gray-700">
-                <h2 class="text-2xl font-bold mb-6">Recursos Cadastrados</h2>
-                <div id="resources-list" class="space-y-4"></div>
+            <div id="list-tab" class="tab-content">
+                <h2>Recursos Cadastrados</h2>
+                <div id="resources-list" class="resources-list"></div>
             </div>
         </div>
     </div>
@@ -91,11 +398,11 @@
         function checkLogin() {
             const isLoggedIn = localStorage.getItem('admin-logged-in') === 'true';
             if (!isLoggedIn) {
-                document.getElementById('login-container').classList.remove('hidden');
-                document.getElementById('admin-container').classList.add('hidden');
+                document.getElementById('login-container').style.display = 'flex';
+                document.getElementById('admin-container').classList.remove('show');
             } else {
-                document.getElementById('login-container').classList.add('hidden');
-                document.getElementById('admin-container').classList.remove('hidden');
+                document.getElementById('login-container').style.display = 'none';
+                document.getElementById('admin-container').classList.add('show');
                 loadResourcesList();
             }
         }
@@ -108,24 +415,26 @@
                 checkLogin();
             } else {
                 alert('Senha incorreta!');
+                document.getElementById('admin-password').value = '';
             }
         });
 
         function logout() {
             localStorage.removeItem('admin-logged-in');
             checkLogin();
+            document.getElementById('login-form').reset();
         }
 
         function switchTab(tab) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.remove('active');
+            });
             document.querySelectorAll('.tab-btn').forEach(el => {
-                el.classList.remove('bg-purple-600', 'hover:bg-purple-700');
-                el.classList.add('bg-gray-700', 'hover:bg-gray-600');
+                el.classList.remove('active');
             });
 
-            document.getElementById(tab + '-tab').classList.remove('hidden');
-            document.querySelector(`[data-tab="${tab}"]`).classList.remove('bg-gray-700', 'hover:bg-gray-600');
-            document.querySelector(`[data-tab="${tab}"]`).classList.add('bg-purple-600', 'hover:bg-purple-700');
+            document.getElementById(tab + '-tab').classList.add('active');
+            document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
         }
 
         document.getElementById('upload-form')?.addEventListener('submit', (e) => {
@@ -138,7 +447,7 @@
                 url: document.getElementById('resource-url').value,
                 category: document.getElementById('resource-category').value,
                 description: document.getElementById('resource-description').value,
-                createdAt: new Date().toLocaleString()
+                createdAt: new Date().toLocaleString('pt-BR')
             };
 
             resources.push(newResource);
@@ -155,22 +464,20 @@
             const listContainer = document.getElementById('resources-list');
 
             if (resources.length === 0) {
-                listContainer.innerHTML = '<p class="text-gray-400">Nenhum recurso cadastrado ainda.</p>';
+                listContainer.innerHTML = '<div class="empty-message">Nenhum recurso cadastrado ainda.</div>';
                 return;
             }
 
             listContainer.innerHTML = resources.map(resource => `
-                <div class="bg-gray-700 p-4 rounded border border-gray-600 flex justify-between items-start">
-                    <div class="flex-1">
-                        <h3 class="font-bold text-lg">${resource.title}</h3>
-                        <p class="text-sm text-gray-400">Categoria: <span class="text-purple-400">${resource.category}</span></p>
-                        <p class="text-sm text-gray-400">${resource.description}</p>
-                        <p class="text-xs text-gray-500 mt-2">URL: <a href="${resource.url}" target="_blank" class="text-blue-400 hover:underline">${resource.url}</a></p>
-                        <p class="text-xs text-gray-500">Criado: ${resource.createdAt}</p>
+                <div class="resource-item">
+                    <div class="resource-info">
+                        <h3>${resource.title}</h3>
+                        <p><strong>Categoria:</strong> ${resource.category}</p>
+                        ${resource.description ? `<p><strong>Descrição:</strong> ${resource.description}</p>` : ''}
+                        <p><strong>URL:</strong> <a href="${resource.url}" target="_blank" class="resource-url">${resource.url}</a></p>
+                        <p style="font-size: 0.85em; color: #666; margin-top: 10px;">Criado: ${resource.createdAt}</p>
                     </div>
-                    <button onclick="deleteResource(${resource.id})" class="bg-red-600 hover:bg-red-700 px-3 py-2 rounded text-sm ml-4">
-                        🗑️ Deletar
-                    </button>
+                    <button class="delete-btn" onclick="deleteResource(${resource.id})">🗑️ Deletar</button>
                 </div>
             `).join('');
         }

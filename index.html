@@ -4,32 +4,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plataforma de Estudos - Black & Purple</title>
     <style>
-        /* Estilos CSS (Versão Preto e Roxo) */
+        /* Estilos CSS (Versão Premium) */
+        * {
+            box-sizing: border-box;
+        }
+        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #1a1a2e;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1a3e 50%, #0f1830 100%);
             color: #e0e0e0;
             line-height: 1.6;
+            min-height: 100vh;
         }
 
         header {
-            background-color: #0f0f1a;
+            background: linear-gradient(135deg, rgba(10, 14, 39, 0.95) 0%, rgba(26, 26, 62, 0.95) 100%);
             color: #ffffff;
-            padding: 30px 20px;
-            box-shadow: 0 4px 12px rgba(106, 5, 173, 0.2);
+            padding: 40px 20px;
+            box-shadow: 0 10px 40px rgba(106, 5, 173, 0.15);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(190, 88, 242, 0.1);
         }
 
         header h1 {
             margin: 0;
-            font-size: 2.2em;
-            letter-spacing: 1.5px;
+            font-size: 2.3em;
+            letter-spacing: 2px;
             flex-grow: 1;
             text-align: center;
+            background: linear-gradient(135deg, #be58f2 0%, #8b3dff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
         }
 
         .admin-link-header {
@@ -44,31 +56,49 @@
         }
 
         nav {
-            background-color: #2e0f4f;
+            background: linear-gradient(90deg, rgba(26, 26, 62, 0.8) 0%, rgba(46, 15, 79, 0.9) 100%);
             overflow: hidden;
             display: flex;
             justify-content: center;
-            border-bottom: 2px solid #6a05ad;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(190, 88, 242, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             flex-wrap: wrap;
+            backdrop-filter: blur(15px);
         }
 
         nav a {
             display: block;
-            color: #ffffff;
+            color: #e0e0e0;
             text-align: center;
-            padding: 18px 30px;
+            padding: 20px 35px;
             text-decoration: none;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            font-weight: bold;
+            transition: all 0.3s ease;
+            font-weight: 600;
             letter-spacing: 0.8px;
             font-size: 1em;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #be58f2, #8b3dff);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after,
+        nav a.active-nav::after {
+            width: 80%;
         }
 
         nav a:hover,
         nav a.active-nav {
-            background-color: #6a05ad;
-            color: #ffffff;
+            color: #be58f2;
         }
 
         nav a.admin-nav {
@@ -85,13 +115,14 @@
 
         .content-section {
             display: none;
-            padding: 40px;
-            background-color: #22223b;
-            border: 1px solid #4a007f;
-            border-radius: 14px;
-            margin-top: 30px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            padding: 50px;
+            background: linear-gradient(135deg, rgba(34, 34, 59, 0.8) 0%, rgba(26, 26, 50, 0.9) 100%);
+            border: 1px solid rgba(190, 88, 242, 0.15);
+            border-radius: 18px;
+            margin-top: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(190, 88, 242, 0.1);
             animation: fadeIn 0.5s ease-in-out;
+            backdrop-filter: blur(10px);
         }
 
         .content-section.active {
@@ -104,13 +135,17 @@
         }
 
         h2 {
-            color: #be58f2;
-            border-bottom: 3px solid #be58f2;
-            padding-bottom: 15px;
-            margin-bottom: 30px;
+            background: linear-gradient(135deg, #be58f2 0%, #8b3dff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            border-bottom: 2px solid rgba(190, 88, 242, 0.3);
+            padding-bottom: 20px;
+            margin-bottom: 35px;
             margin-top: 0;
-            font-size: 2.1em;
-            letter-spacing: 1px;
+            font-size: 2.2em;
+            letter-spacing: 1.2px;
+            font-weight: 700;
         }
 
         p {
@@ -129,18 +164,21 @@
         }
 
         .example-list li {
-            background-color: #311d4e;
-            margin-bottom: 15px;
-            padding: 18px 24px;
-            border-radius: 10px;
-            border-left: 5px solid #be58f2;
-            transition: transform 0.2s ease, background-color 0.2s ease;
+            background: linear-gradient(135deg, rgba(49, 29, 78, 0.6) 0%, rgba(38, 22, 60, 0.8) 100%);
+            margin-bottom: 18px;
+            padding: 22px 28px;
+            border-radius: 12px;
+            border-left: 4px solid #be58f2;
+            border: 1px solid rgba(190, 88, 242, 0.1);
+            border-left: 4px solid #be58f2;
+            transition: all 0.3s ease;
             font-size: 1.05em;
         }
 
         .example-list li:hover {
-            transform: translateX(8px);
-            background-color: #3e265c;
+            transform: translateX(10px);
+            background: linear-gradient(135deg, rgba(49, 29, 78, 0.8) 0%, rgba(38, 22, 60, 1) 100%);
+            box-shadow: 0 8px 25px rgba(190, 88, 242, 0.2);
         }
 
         /* Estilo dos Botões (Simulado e YouTube) */
@@ -148,42 +186,58 @@
             display: block;
             width: 100%;
             text-align: center;
-            padding: 25px;
-            font-weight: bold;
+            padding: 28px;
+            font-weight: 700;
             font-size: 1.25em;
-            border-radius: 14px;
+            border-radius: 16px;
             text-decoration: none;
-            margin-bottom: 25px;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
             border: none;
             cursor: pointer;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .primary-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: left 0.3s ease;
+        }
+
+        .primary-button:hover::before {
+            left: 100%;
         }
 
         /* Estilo Específico para o Botão do Simulados */
         .simulado-button {
-            background-color: #be58f2; /* Roxo brilhante */
-            color: #0f0f1a; /* Texto escuro */
-            box-shadow: 0 6px 15px rgba(190, 88, 242, 0.5);
+            background: linear-gradient(135deg, #be58f2 0%, #8b3dff 100%);
+            color: #ffffff;
+            box-shadow: 0 8px 25px rgba(190, 88, 242, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
         
         .simulado-button:hover {
-            background-color: #d175ff;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(190, 88, 242, 0.6);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px rgba(190, 88, 242, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
         /* Estilo Específico para o NOVO Botão do YouTube */
         .youtube-button {
-            background-color: #ff0000; /* Vermelho do YouTube */
-            color: #ffffff; /* Texto branco */
-            box-shadow: 0 6px 15px rgba(255, 0, 0, 0.5);
-            margin-top: 30px; /* Separar do vídeo */
+            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+            color: #ffffff;
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            margin-top: 35px;
         }
 
         .youtube-button:hover {
-            background-color: #cc0000;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px rgba(255, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
         /* Estilo para o vídeo responsivo */
@@ -193,11 +247,12 @@
             height: 0;
             overflow: hidden;
             max-width: 100%;
-            background: #000;
-            border-radius: 12px;
-            margin-top: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, #1a1a2e 0%, #0a0e27 100%);
+            border-radius: 16px;
+            margin-top: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 12px 40px rgba(106, 5, 173, 0.3), inset 0 1px 0 rgba(190, 88, 242, 0.1);
+            border: 1px solid rgba(190, 88, 242, 0.15);
         }
 
         .video-wrapper iframe {
@@ -210,17 +265,19 @@
         }
 
         .dynamic-resource {
-            background-color: #311d4e;
-            margin-bottom: 15px;
-            padding: 18px 24px;
-            border-radius: 10px;
-            border-left: 5px solid #6a05ad;
-            transition: transform 0.2s ease, background-color 0.2s ease;
+            background: linear-gradient(135deg, rgba(49, 29, 78, 0.6) 0%, rgba(38, 22, 60, 0.8) 100%);
+            margin-bottom: 18px;
+            padding: 22px 28px;
+            border-radius: 12px;
+            border: 1px solid rgba(190, 88, 242, 0.1);
+            border-left: 4px solid #6a05ad;
+            transition: all 0.3s ease;
         }
 
         .dynamic-resource:hover {
-            transform: translateX(8px);
-            background-color: #3e265c;
+            transform: translateX(10px);
+            background: linear-gradient(135deg, rgba(49, 29, 78, 0.8) 0%, rgba(38, 22, 60, 1) 100%);
+            box-shadow: 0 8px 25px rgba(190, 88, 242, 0.2);
         }
 
         .dynamic-resource a {
